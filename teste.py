@@ -16,7 +16,7 @@ player = FirstPersonController(
     model='cube', z=-10, color=color.orange, origin_y=-.5, speed=8, collider='box')
 player.collider = BoxCollider(player, Vec3(0, 1, 0), Vec3(1, 2, 1))
 
-gun = Entity(model='cube', parent=player, position=(.5, -.25, .25),
+gun = Entity(model='cube', parent=player, position=(.5, 1, .25),
              scale=(.3, .2, 1), origin_z=-.5, color=color.red, on_cooldown=False)
 gun.muzzle_flash = Entity(parent=gun, z=1, world_scale=.5,
                           model='quad', color=color.yellow, enabled=False)
