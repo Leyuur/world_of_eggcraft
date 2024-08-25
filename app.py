@@ -24,7 +24,7 @@ def setup_scene():
     )
     ambientSound = Audio('audio/ambient-music.mp3', loop=True, autoplay=False)
     ambientSound.volume = .3
-    # ambientSound.play()
+    ambientSound.play()
 
 def setup_lights():
     DirectionalLight(parent=sun, y=2, z=3, shadows=True)
