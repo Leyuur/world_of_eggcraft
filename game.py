@@ -5,12 +5,14 @@ from ursina.prefabs.sky import *
 from ursina.lights import *
 from world import World
 from player import *
+from enemies import *
+from mechanics import *
 
-game = Ursina(fullscreen = True, show_ursina_splash=True)
+game = Ursina(
+    # fullscreen = True, show_ursina_splash=True
+    )
 
 World()
-
-
 player = Warrior()
 cocodrilos = enemySpawner(5)
 # EditorCamera()

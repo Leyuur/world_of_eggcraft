@@ -2,7 +2,7 @@ from ursina import *
 from ursina.shaders import *
 from ursina.collider import *
 from mechanics import *
-
+from enemies import *
 
 class Warrior(Entity):
     def __init__(self):
@@ -23,10 +23,22 @@ class Warrior(Entity):
     
     def update(self):
         # player movimentation
-        self.x += held_keys['d'] * time.dt * self.speed
-        self.x -= held_keys['a'] * time.dt * self.speed
-        self.z += held_keys['w'] * time.dt * self.speed
-        self.z -= held_keys['s'] * time.dt * self.speed
+        if held_keys['d']:
+            self.x +=  time.dt * self.speed
+            self.rotation_y = 90
+        if held_keys['d']:
+            self.x +=  time.dt * self.speed
+            self.rotation_y = 90
+        if held_keys['a']:
+            self.x -=  time.dt * self.speed
+            self.rotation_y = -90
+        if held_keys['w']:
+            self.z +=  time.dt * self.speed
+            self.rotation_y = 0
+        if held_keys['s']:
+            self.z -=  time.dt * self.speed
+            self.rotation_y = 180
+        
         
         # player gravity
         self.velocity_y -= self.gravity * time.dt
@@ -57,7 +69,7 @@ class Mage(Entity):
         self.texture = "models/textures/texture-hadeggar.png"
         self.scale = 5
         self.position = (0, self.scale[1] / 2, 0)
-        self.collider = "box"
+        self.collider = "mesh"
         self.shader = lit_with_shadows_shader
         self.speed = 10
         self.gravity = 1
