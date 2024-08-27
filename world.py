@@ -11,9 +11,11 @@ class World():
             model = "plane",
             texture = "grass",
             shader = lit_with_shadows_shader,
-            scale = (2000, 10, 2000),
             collider = "box",
+            scale = 2000
         )
+
+
         self.sky = Sky()
         self.sun = Entity(rotation_x=45, rotation_y=45)
         DirectionalLight(shadows=True, parent=self.sun, y=2, z=3)

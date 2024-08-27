@@ -16,6 +16,6 @@ class Tree(Entity):
         self.shader = lit_with_shadows_shader
             
 def treeSpawner(q=int):
-    for i in range(q):
+    for _ in range(q):
         Tree()
         

@@ -11,7 +11,6 @@ from mechanics import *
 
 game = Ursina(
     development_mode=False,
-    fullscreen = True, 
     # show_ursina_splash=True,
     title = "World of Eggcraft"
     )
@@ -20,10 +19,10 @@ World()
 
 player = Warrior()
 
-# cocodrilos = enemySpawner(150)
+cocodrilos = enemySpawner(player, 50)
 
-# trees = treeSpawner(200)
+trees = treeSpawner(200)
 
-# EditorCamera()
+EditorCamera()
 
 game.run()
