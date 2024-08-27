@@ -1,10 +1,12 @@
 from ursina import *
 from ursina.shaders import *
 from ursina.collider import *
+from ursina.prefabs.first_person_controller import FirstPersonController
 from mechanics import *
 from enemies import *
 
-class Warrior(Entity):
+
+class Player(FirstPersonController):
     def __init__(self):
         # player features
         super().__init__()
@@ -12,97 +14,47 @@ class Warrior(Entity):
         self.texture = "models/textures/texture-eggwin.png"
         self.scale = 5
         self.position = (0, self.scale[1] / 2, 0)
-        self.collider = "box"
+        self.collider = BoxCollider(self)
         self.shader = lit_with_shadows_shader
-        self.speed = 10
+        self.speed = 8
+        self.sense = 100
         self.gravity = 1
         self.jump_height = 0.3
         self.jump_speed = 0.5
         self.velocity_y = 0 
+        self.velocity_x = 0
         self.is_jumping = False
+        self.thisClass = Warrior
+        mouse.locked = True
     
     def update(self):
         # player movimentation
-        if held_keys['d']:
-            self.x +=  time.dt * self.speed
-            self.rotation_y = 90
-        if held_keys['d']:
-            self.x +=  time.dt * self.speed
-            self.rotation_y = 90
-        if held_keys['a']:
-            self.x -=  time.dt * self.speed
-            self.rotation_y = -90
-        if held_keys['w']:
-            self.z +=  time.dt * self.speed
-            self.rotation_y = 0
-        if held_keys['s']:
-            self.z -=  time.dt * self.speed
-            self.rotation_y = 180
-        
+        move(self=self)
         
         # player gravity
-        self.velocity_y -= self.gravity * time.dt
-        self.y += self.velocity_y
-        
-        # verify collision
-        if self.y <= self.scale[1] / 2:
-            self.y = self.scale[1] / 2
-            self.velocity_y = 0
-            self.is_jumping = False
-        
+        gravity(self=self)
+       
         # player camera position
-        camera.position = (self.position.x, self.scale[1] + 50, self.position.z - 100)
-        camera.look_at(self)
-
+        camera.z = -7
+        
     def input(self, key):
-        if key == 'space' and not self.is_jumping:
-            self.velocity_y = self.jump_height
-            self.is_jumping = True
-        if key == 'left mouse up':
-            invoke(destroy, Melee(self.position), delay = 0.1)
+        newKey = key
+        jump(self=self, key=newKey ,keyValue="space")
+        attack(self=self, key=newKey,keyValue="left mouse up")
 
-class Mage(Entity):
+
+class Warrior(Player):
     def __init__(self):
-        # player features
+        super().__init__()
+        self.model = "models/eggwin.obj"
+        self.texture = "models/textures/texture-eggwin.png"
+        self.thisClass = Warrior
+
+class Mage(Player):
+    def __init__(self):
         super().__init__()
         self.model = "models/hadeggar.obj"
         self.texture = "models/textures/texture-hadeggar.png"
-        self.scale = 5
-        self.position = (0, self.scale[1] / 2, 0)
-        self.collider = "mesh"
-        self.shader = lit_with_shadows_shader
-        self.speed = 10
-        self.gravity = 1
-        self.jump_height = 0.3
-        self.jump_speed = 0.5
-        self.velocity_y = 0 
-        self.is_jumping = False
+        self.thisClass = Mage
     
-    def update(self):
-        # player movimentation
-        self.x += held_keys['d'] * time.dt * self.speed
-        self.x -= held_keys['a'] * time.dt * self.speed
-        self.z += held_keys['w'] * time.dt * self.speed
-        self.z -= held_keys['s'] * time.dt * self.speed
-        
-        # player gravity
-        self.velocity_y -= self.gravity * time.dt
-        self.y += self.velocity_y
-        
-        # verify collision
-        if self.y <= self.scale[1] / 2:
-            self.y = self.scale[1] / 2
-            self.velocity_y = 0
-            self.is_jumping = False
-        
-        # player camera position
-        camera.position = (self.position.x, self.scale[1] + 50, self.position.z - 100)
-        camera.look_at(self)
-
-    def input(self, key):
-        if key == 'space' and not self.is_jumping:
-            self.velocity_y = self.jump_height
-            self.is_jumping = True
-        if key == 'left mouse up':
-             Caster(self.position)
         

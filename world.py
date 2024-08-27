@@ -11,7 +11,7 @@ class World():
             model = "plane",
             texture = "grass",
             shader = lit_with_shadows_shader,
-            scale = (500, 10, 500),
+            scale = (2000, 10, 2000),
             collider = "box",
         )
         self.sky = Sky()
@@ -19,4 +19,5 @@ class World():
         DirectionalLight(shadows=True, parent=self.sun, y=2, z=3)
         self.ambientSound = Audio('audio/ambient-sound.mp3', loop=True, autoplay=True)
         self.ambientSound.volume = .5
+
     

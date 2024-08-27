@@ -11,10 +11,11 @@ class Enemy(Entity):
         self.model = "models/cocodrilo.obj"
         self.texture = "models/textures/texture-cocodrilo.png"
         self.scale = 5
-        self.position = (randint(0, 200), self.scale[1] / 2, randint(0, 200))
-        self.collider = "box"
+        self.position = (randint(0, 1990), self.scale[1] / 2, randint(0, 1990))
+        self.collider = "mesh"
         self.shader = lit_with_shadows_shader
             
 def enemySpawner(q=int):
     for i in range(q):
         Enemy()
+        

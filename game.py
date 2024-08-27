@@ -4,17 +4,26 @@ from ursina.collider import *
 from ursina.prefabs.sky import *
 from ursina.lights import *
 from world import World
-from player import *
+from player import Warrior, Mage
 from enemies import *
+from objects import *
 from mechanics import *
 
 game = Ursina(
-    # fullscreen = True, show_ursina_splash=True
+    development_mode=False,
+    fullscreen = True, 
+    # show_ursina_splash=True,
+    title = "World of Eggcraft"
     )
 
 World()
+
 player = Warrior()
-cocodrilos = enemySpawner(5)
+
+# cocodrilos = enemySpawner(150)
+
+# trees = treeSpawner(200)
+
 # EditorCamera()
 
 game.run()
